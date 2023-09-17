@@ -9,6 +9,7 @@ namespace DataAccessLibrary.Data
         void DeleteUser(int id);
         IEnumerable<User> GetAllUsers();
         User GetUserById(int id);
+        User GetUserByUserName(string username);
         bool RegisterUser(string username, string plainPassword);
         void UpdateUser(User user);
     }

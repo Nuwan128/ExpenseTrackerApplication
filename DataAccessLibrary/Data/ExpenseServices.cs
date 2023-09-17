@@ -17,36 +17,94 @@ namespace DataAccessLibrary.Data
         {
             _dbContext = dbContext;
         }
-        public void CreateExpense(Expense expense)
+        public bool CreateExpense(Expense expense)
         {
-            _dbContext.Expenses.Add(expense);
-            _dbContext.SaveChanges();
+            // Check if an expense with the same attributes already exists
+            var existingExpense = _dbContext.Expenses
+                .FirstOrDefault(e =>
+                    e.ExpenseName == expense.ExpenseName &&
+                    e.ExpenseDate.Date == expense.ExpenseDate.Date &&
+                    e.Amount == expense.Amount);
+
+            if (existingExpense == null)
+            {
+                // If no matching expense exists, add the new expense
+                _dbContext.Expenses.Add(expense);
+                _dbContext.SaveChanges();
+                return true;
+            }
+            else
+            {
+                // If a matching expense exists, handle the duplicate gracefully
+               return false;
+                
+            }
         }
+
+
 
         public Expense GetExpenseById(int id)
         {
             return _dbContext.Expenses.FirstOrDefault(e => e.Id == id);
         }
+        public List<Expense> GetExpensesByUserId(int userId)
+        {
+            return _dbContext.Expenses.Where(e => e.UserId == userId).ToList();
+        }
+        public List<Expense> GetExpensesByUserName(string expenseName)
+        {
+            return _dbContext.Expenses.Where(e => e.ExpenseName == expenseName).ToList();
+        }
+
+
 
         public IEnumerable<Expense> GetAllExpenses()
         {
             return _dbContext.Expenses.ToList();
         }
 
-        public void UpdateExpense(Expense expense)
+        public bool UpdateExpense(Expense updatedExpense)
         {
-            _dbContext.Expenses.Update(expense);
-            _dbContext.SaveChanges();
+            // Retrieve the existing expense from the database based on its unique identifier (e.g., ExpenseId)
+            var existingExpense = _dbContext.Expenses.FirstOrDefault(e => e.Id == updatedExpense.Id);
+
+            if (existingExpense != null)
+            {
+                // Update the properties of the existing expense with the new values
+                existingExpense.ExpenseName = updatedExpense.ExpenseName;
+                existingExpense.Amount = updatedExpense.Amount;
+                existingExpense.ExpenseDate = updatedExpense.ExpenseDate;
+
+                // Save the changes to the database
+                _dbContext.SaveChanges();
+                return true;
+            }
+            else
+            {
+                // Handle the case where the expense to update does not exist
+                return false;
+                
+            }
         }
 
-        public void DeleteExpense(int id)
+
+        public bool DeleteExpense(int id)
         {
-            var expense = _dbContext.Expenses.FirstOrDefault(e => e.Id == id);
-            if (expense != null)
-            {
-                _dbContext.Expenses.Remove(expense);
-                _dbContext.SaveChanges();
-            }
+            
+                var expense = _dbContext.Expenses.FirstOrDefault(e => e.Id == id);
+                if (expense != null)
+                {
+                    _dbContext.Expenses.Remove(expense);
+                    _dbContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            
+           
+            
         }
 
 

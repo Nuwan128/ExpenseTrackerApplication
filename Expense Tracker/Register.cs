@@ -9,15 +9,18 @@ namespace Expense_Tracker
     public partial class Register : Form
     {
         private readonly IUserServices _user;
-        public Register(IUserServices user)
+        private readonly IExpenseServices _expense;
+
+        public Register(IUserServices user, IExpenseServices expense)
         {
             InitializeComponent();
             _user = user;
+            _expense = expense;
         }
         private void loginButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            LogIn logIn = new LogIn(_user);
+            LogIn logIn = new LogIn(_user, _expense);
             logIn.ShowDialog();
         }
         private void showPasswordCheackBox_CheckedChanged(object sender, EventArgs e)
@@ -80,7 +83,7 @@ namespace Expense_Tracker
                 {
                     MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Hide();
-                    LogIn logIn = new LogIn(_user);
+                    LogIn logIn = new LogIn(_user, _expense);
                     logIn.ShowDialog();
                 }
                 else

@@ -14,5 +14,6 @@ namespace DataAccessLibrary.Models
         public string Salt { get; set; }
         public List<Expense> Expenses { get; set; } = new List<Expense>();
 
+       
     }
 }

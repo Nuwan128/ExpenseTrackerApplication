@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary.Data;
 using DevExpress.Utils.IoC;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,16 +10,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Expense_Tracker
 {
     public partial class LogIn : Form
     {
         private readonly IUserServices _user;
-        public LogIn(IUserServices user)
+        private readonly IExpenseServices _expense;
+
+        public LogIn(IUserServices user,IExpenseServices expense)
         {
             InitializeComponent();
             _user = user;
+            _expense = expense;
         }
         private void showPasswordCheackBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -34,7 +39,7 @@ namespace Expense_Tracker
         private void registerButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Register register = new Register(_user);
+            Register register = new Register(_user, _expense);
             register.ShowDialog();
         }
         private void loginButton_Click(object sender, EventArgs e)
@@ -71,7 +76,8 @@ namespace Expense_Tracker
                 {
                     MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Hide();
-                    Dashboard dashboard = new Dashboard();
+                    var user = _user.GetUserByUserName(userName);
+                    Dashboard dashboard = new Dashboard(_expense,user);
                     dashboard.ShowDialog();
                 }
                 else

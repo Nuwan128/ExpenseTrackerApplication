@@ -30,6 +30,10 @@ namespace DataAccessLibrary.Data
         {
             return _dbContext.Users.FirstOrDefault(u => u.Id == id);
         }
+        public User GetUserByUserName(string username)
+        {
+            return _dbContext.Users.FirstOrDefault(u => u.UserName == username);
+        }
 
         public IEnumerable<User> GetAllUsers()
         {
@@ -94,9 +98,9 @@ namespace DataAccessLibrary.Data
         }
         public bool AuthenticateUser(string username, string providedPassword)
         {
-            // Retrieve the stored salt and hashed password for the user from the database
-            string storedSalt = GetSaltByUsername(username); // Implement this method
-            string storedHashedPassword = GetHashedPasswordByUsername(username); // Implement this method
+            //Retrieve the stored salt and hashed password for the user
+            string storedSalt = GetSaltByUsername(username); 
+            string storedHashedPassword = GetHashedPasswordByUsername(username); 
 
             if (storedSalt == null || storedHashedPassword == null)
             {
