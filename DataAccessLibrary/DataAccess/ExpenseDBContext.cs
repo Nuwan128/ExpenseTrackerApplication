@@ -21,8 +21,11 @@ namespace DataAccessLibrary.DataAccess
         }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-          
-            options.UseSqlServer(_config.GetConnectionString("Default"));
+            string? connectionString = _config.GetConnectionString("Default");
+
+
+            options.UseSqlServer(connectionString);
+            //options.UseMySql(connectionString,ServerVersion.AutoDetect(connectionString));
         }
     }
 }

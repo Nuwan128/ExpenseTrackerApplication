@@ -12,7 +12,6 @@ namespace DataAccessLibrary.Data
     public class ExpenseServices : IExpenseServices
     {
         private readonly ExpenseDBContext _dbContext;
-
         public ExpenseServices(ExpenseDBContext dbContext)
         {
             _dbContext = dbContext;
@@ -40,9 +39,6 @@ namespace DataAccessLibrary.Data
                 
             }
         }
-
-
-
         public Expense GetExpenseById(int id)
         {
             return _dbContext.Expenses.FirstOrDefault(e => e.Id == id);
@@ -55,14 +51,10 @@ namespace DataAccessLibrary.Data
         {
             return _dbContext.Expenses.Where(e => e.ExpenseName == expenseName).ToList();
         }
-
-
-
         public IEnumerable<Expense> GetAllExpenses()
         {
             return _dbContext.Expenses.ToList();
         }
-
         public bool UpdateExpense(Expense updatedExpense)
         {
             // Retrieve the existing expense from the database based on its unique identifier (e.g., ExpenseId)
@@ -86,8 +78,6 @@ namespace DataAccessLibrary.Data
                 
             }
         }
-
-
         public bool DeleteExpense(int id)
         {
             

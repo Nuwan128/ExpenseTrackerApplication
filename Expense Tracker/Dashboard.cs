@@ -216,29 +216,6 @@ namespace Expense_Tracker
 
         }
 
-        //private void EmptyFieldMessageShow()
-        //{
-        //    List<string> emptyFields = new List<string>();
-        //    if (string.IsNullOrWhiteSpace(expenseTextBox.Text))
-        //    {
-        //        emptyFields.Add("User Name");
-        //        expenseTextBox.Focus();
-        //    }
-        //    if (string.IsNullOrWhiteSpace(amountTextBox.Text))
-        //    {
-        //        emptyFields.Add("Password Name");
-        //        amountTextBox.Focus();
-        //    }
-
-
-        //    if (emptyFields.Count > 0)
-        //    {
-        //        string message = "Please enter the following fields:\n\n";
-        //        message += string.Join("\n", emptyFields);
-        //        MessageBox.Show(message, "Empty Fields", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //        return;
-        //    }
-
-        //}
+    
     }
 }

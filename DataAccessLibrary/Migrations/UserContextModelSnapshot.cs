@@ -48,7 +48,7 @@ namespace DataAccessLibrary.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Expenses");
+                    b.ToTable("Expenses", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLibrary.Models.User", b =>
@@ -73,7 +73,7 @@ namespace DataAccessLibrary.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLibrary.Models.Expense", b =>

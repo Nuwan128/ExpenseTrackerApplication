@@ -14,18 +14,15 @@ namespace DataAccessLibrary.Data
     public class UserServices : IUserServices
     {
         private readonly ExpenseDBContext _dbContext;
-
         public UserServices(ExpenseDBContext dbContext)
         {
             _dbContext = dbContext;
         }
-
         public void CreateUser(User user)
         {
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
         }
-
         public User GetUserById(int id)
         {
             return _dbContext.Users.FirstOrDefault(u => u.Id == id);
@@ -34,18 +31,15 @@ namespace DataAccessLibrary.Data
         {
             return _dbContext.Users.FirstOrDefault(u => u.UserName == username);
         }
-
         public IEnumerable<User> GetAllUsers()
         {
             return _dbContext.Users.ToList();
         }
-
         public void UpdateUser(User user)
         {
             _dbContext.Users.Update(user);
             _dbContext.SaveChanges();
         }
-
         public void DeleteUser(int id)
         {
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == id);
@@ -55,7 +49,6 @@ namespace DataAccessLibrary.Data
                 _dbContext.SaveChanges();
             }
         }
-
         public bool RegisterUser(string username, string plainPassword)
         {
             // Generate a unique salt
@@ -122,7 +115,6 @@ namespace DataAccessLibrary.Data
             // Return the salt if the user exists, otherwise return null
             return user?.Salt;
         }
-
         public string GetHashedPasswordByUsername(string username)
         {
             // Query the database to retrieve the hashed password for the given username
@@ -132,10 +124,6 @@ namespace DataAccessLibrary.Data
             return user?.PasswordHash;
         }
 
-
-
-
-        
     }
 
 
